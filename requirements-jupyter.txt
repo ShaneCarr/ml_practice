@@ -1,0 +1,3 @@
+# Jupyter-specific Python packages
+jupyter
+notebook

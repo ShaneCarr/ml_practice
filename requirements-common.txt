@@ -1,0 +1,6 @@
+# Common Python packages for all services
+numpy
+pandas
+scipy
+matplotlib
+scikit-learn

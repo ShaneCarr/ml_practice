@@ -1,0 +1,11 @@
+# Dockerfile.jupyter
+
+# Use the base Dockerfile as the parent image
+FROM base
+
+# Copy Jupyter-specific requirements file and install packages
+COPY requirements-jupyter.txt .
+RUN pip3 install --no-cache-dir -r requirements-jupyter.txt
+
+# Set the default command to run Jupyter Notebook
+CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root"]
