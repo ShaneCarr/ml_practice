@@ -2,6 +2,13 @@
 
 This project sets up a Dockerized environment for machine learning development with Jupyter Notebook and a Java service. It uses NVIDIA CUDA for GPU acceleration and provides a clean, portable setup for your development needs.
 
+In reality i got tired for setting up python, and jupyter on several differnet os's windows, mac linux
+and all the computers. I can clone this and go.
+
+The other project is java, and ubuntu mode includes cuda.  in most cases for me since i have nvidia cards i want cuda for models/infrence. Just follow mac-style if you want jupyter only. 
+
+This  started because I  use linux a lot; I don't like polluting my machine with dependnecies like cuda and various python libraries and whatever else gets pulled in so I use docker.
+
 ## Prerequisites
 
 - Docker
