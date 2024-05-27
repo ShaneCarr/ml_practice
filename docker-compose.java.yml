@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  java_service:
+    build:
+      context: .
+      dockerfile: Dockerfile.java
+    ports:
+      - "8080:8080"
+    volumes:
+      - ${LOCAL_PROJECT_DIR}/java:/workspace/java
+    env_file:
+      - .env

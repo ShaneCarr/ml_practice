@@ -105,19 +105,16 @@ make init
 ```
 
 Folders:
-~/shane/repo/machine_learning/
-│
-├── .env                         # Environment variables for Docker Compose
-├── Dockerfile.base              # Base Dockerfile with common dependencies
-├── Dockerfile.jupyter           # Dockerfile for Jupyter service
-├── Dockerfile.java              # Dockerfile for Java service
-├── requirements-common.txt      # Common Python dependencies
-├── requirements-jupyter.txt     # Jupyter-specific Python dependencies
-├── docker-compose.yml           # Docker Compose configuration
-├── setup_ml_docker_cuda.sh      # Setup script
-├── Makefile                     # Makefile with commands for managing the project
-├── jupyter/                     # Directory for Jupyter notebooks and related files
-│   └── ...                      # Jupyter notebooks and related files go here
-└── java/                        # Directory for Java source files and related files
-    └── Main.java                # Java application entry point
-# ml_practice
+machine_learning/
+├── docker-compose.yml
+├── docker-compose.linux.yml
+├── docker-compose.mac.yml
+├── Dockerfile.base
+├── Dockerfile.jupyter
+├── Dockerfile.jupyter.mac
+├── Makefile
+├── requirements-common.txt
+├── requirements-jupyter.txt
+├── requirements-jupyter-mac.txt
+├── java/
+└── jupyter/

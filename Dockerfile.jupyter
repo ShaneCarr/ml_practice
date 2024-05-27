@@ -1,5 +1,3 @@
-# Dockerfile.jupyter
-
 # Use the base Dockerfile as the parent image
 FROM base
 

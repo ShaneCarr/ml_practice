@@ -1,32 +1,19 @@
 version: '3.8'
 
 services:
+  base:
+    build:
+      context: .
+      dockerfile: ${DOCKERFILE_BASE}
+    image: base
+
   jupyter:
     build:
       context: .
-      dockerfile: Dockerfile.jupyter
-      args:
-        CUDA_VERSION: ${CUDA_VERSION}
-        CUDNN_VERSION: ${CUDNN_VERSION}
+      dockerfile: ${DOCKERFILE_JUPYTER}
     ports:
       - "8888:8888"
     volumes:
       - ${LOCAL_PROJECT_DIR}/jupyter:/workspace/jupyter
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - capabilities: [gpu]
-    runtime: nvidia
     env_file:
       - .env
-
-  base:
-    build:
-      context: .
-      dockerfile: Dockerfile.base
-      args:
-        CUDA_VERSION: ${CUDA_VERSION}
-        CUDNN_VERSION: ${CUDNN_VERSION}
-    image: base
-

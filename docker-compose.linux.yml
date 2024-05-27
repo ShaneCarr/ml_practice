@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  base:
+    build:
+      context: .
+      dockerfile: Dockerfile.base.linux
+      args:
+        CUDA_VERSION: ${CUDA_VERSION}
+        CUDNN_VERSION: ${CUDNN_VERSION}
+    image: base

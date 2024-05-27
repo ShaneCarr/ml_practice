@@ -1,11 +1,7 @@
-# Dockerfile.base
+# Dockerfile.base.mac
 
-# Define build arguments for CUDA and cuDNN versions
-ARG CUDA_VERSION
-ARG CUDNN_VERSION
-
-# Use an official NVIDIA CUDA runtime as a parent image
-FROM nvidia/cuda:${CUDA_VERSION}-cudnn${CUDNN_VERSION}-runtime-ubuntu20.04
+# Use an official Python runtime as a parent image (no NVIDIA support needed)
+FROM python:3.9-slim
 
 # Set the working directory in the container
 WORKDIR /workspace
@@ -19,7 +15,7 @@ RUN apt-get update && apt-get install -y \
     tzdata \
     python3-pip \
     python3-dev \
-    openjdk-21-jdk \
+    openjdk-17-jdk \
     git \
     && ln -fs /usr/share/zoneinfo/Etc/UTC /etc/localtime \
     && dpkg-reconfigure --frontend noninteractive tzdata \
