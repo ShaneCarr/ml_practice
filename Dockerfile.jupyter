@@ -1,9 +1,25 @@
 # Use the base Dockerfile as the parent image
 FROM base
 
+# Set the working directory in the container
+WORKDIR /workspace
+
+# Install common dependencies
+RUN apt-get update && apt-get install -y \
+    python3-pip \
+    python3-dev \
+    git \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
 # Copy Jupyter-specific requirements file and install packages
 COPY requirements-jupyter.txt .
 RUN pip3 install --no-cache-dir -r requirements-jupyter.txt
+
+# Ensure the .jupyter directory exists and generate the configuration file
+RUN mkdir -p /root/.jupyter && \
+    jupyter notebook --generate-config --allow-root && \
+    echo "c.NotebookApp.token = ''" >> /root/.jupyter/jupyter_notebook_config.py
 
 # Set the default command to run Jupyter Notebook
 CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root"]

@@ -13,6 +13,8 @@ all: build
 # Configuration option to include/exclude Java service
 # This variable can be set externally. If not set, it defaults to false.
 INCLUDE_JAVA ?= false
+# Specify a pattern to identify the Jupyter container (by name or image)
+CONTAINER_IMAGE=ml_practice-jupyter
 
 # Determine platform-specific Dockerfile
 # uname -s returns the operating system name
@@ -54,6 +56,27 @@ ifneq ($(INCLUDE_JAVA),false)
 	# Start the Java service container if INCLUDE_JAVA is set to true
 	docker-compose -f docker-compose.java.yml up -d
 endif
+
+# Target to find the running container ID
+find-container:
+	@echo "Finding container running image '$(CONTAINER_IMAGE)'..."
+	@docker ps --filter "ancestor=$(CONTAINER_IMAGE)" --filter "status=running" --format "{{.ID}}" | head -n 1 > .container_id
+	@if [ -s .container_id ]; then \
+		echo "Container ID: $$(cat .container_id)"; \
+	else \
+		echo "No running container found for image '$(CONTAINER_IMAGE)'."; \
+	fi
+
+# Target to retrieve the Jupyter token
+get-token: find-container
+	@CONTAINER_ID=$$(cat .container_id); \
+	if [ -z "$$CONTAINER_ID" ]; then \
+		echo "No running container found for image '$(CONTAINER_IMAGE)'."; \
+	else \
+		echo "Retrieving Jupyter token from container $$CONTAINER_ID..."; \
+		docker exec -it $$CONTAINER_ID jupyter server list 2>/dev/null | awk -F'token=' '{print $$2}' | awk '{print $$1}' | head -n 1 | xargs -I{} echo "Jupyter token: {}"; \
+	fi
+
 
 # Stop Docker containers
 down:

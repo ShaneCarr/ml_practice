@@ -16,5 +16,10 @@ RUN apt-get update && apt-get install -y \
 COPY requirements-jupyter.txt .
 RUN pip3 install --no-cache-dir -r requirements-jupyter.txt
 
+# Ensure the .jupyter directory exists and generate the configuration file
+RUN mkdir -p /root/.jupyter && \
+    jupyter notebook --generate-config --allow-root && \
+    echo "c.NotebookApp.token = ''" >> /root/.jupyter/jupyter_notebook_config.py
+
 # Set the default command to run Jupyter Notebook
 CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root"]
